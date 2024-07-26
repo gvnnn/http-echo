@@ -17,8 +17,11 @@ func main() {
 		port = defaultPort
 	}
 
+	cert := os.Getenv("ECHO_SERVER_CERT")
+	key := os.Getenv("ECHO_SERVER_KEY")
+
 	fmt.Printf("Listening on %s\n", ":" + port)
-	log.Fatal(http.ListenAndServe(":" + port, nil))
+	log.Fatal(http.ListenAndServeTLS(":" + port, cert, key, nil))
 }
 
 func echo(w http.ResponseWriter, r *http.Request) {
